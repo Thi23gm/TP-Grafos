@@ -61,7 +61,7 @@ public class Edmonds {
     }
 
     private void imprimirArborescenciaMinima() throws IOException {
-        FileWriter fw = new FileWriter("saida.txt");
+        FileWriter fw = new FileWriter("Saida_Edmonds.txt");
         BufferedWriter bw = new BufferedWriter(fw);
 
         bw.write("Arestas da Arborescência Mínima:");

@@ -7,14 +7,39 @@ public class Grafo {
     private List<Aresta> arestas; // Lista de arestas
 
     // Classe para representar uma aresta
-    class Aresta {
+    public class Aresta {
         int origem, destino, peso;
+
+        public int getOrigem() {
+            return origem;
+        }
+
+        public void setOrigem(int origem) {
+            this.origem = origem;
+        }
+
+        public int getDestino() {
+            return destino;
+        }
+
+        public void setDestino(int destino) {
+            this.destino = destino;
+        }
+
+        public int getPeso() {
+            return peso;
+        }
+
+        public void setPeso(int peso) {
+            this.peso = peso;
+        }
 
         Aresta(int origem, int destino, int peso) {
             this.origem = origem - 1;
             this.destino = destino - 1;
             this.peso = peso;
         }
+
     }
 
     // Construtor do grafo
@@ -48,6 +73,16 @@ public class Grafo {
         if (parente[i] == -1)
             return i;
         return obterRaiz(parente, parente[i]);
+    }
+
+    public List<Aresta> getArestasSaindoDe(int v) {
+        List<Aresta> arestasSaindoDeV = new ArrayList<>();
+        for (Aresta aresta : arestas) {
+            if (aresta.getOrigem() == v) {
+                arestasSaindoDeV.add(aresta);
+            }
+        }
+        return arestasSaindoDeV;
     }
 
     public int getV() {
