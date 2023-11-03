@@ -70,11 +70,14 @@ public class Tarjan {
     public void encontrarArborescenciaMinima() {
         result = new ArrayList<>();
         int n = g.getV();
+        int comparacoes = 0; // Variável para contar as comparações
 
         PriorityQueue<Grafo.Aresta> conjuntosArestas = new PriorityQueue<>(n, (a1, a2) -> a1.getPeso() - a2.getPeso());
 
         for (Grafo.Aresta aresta : g.getArestas()) {
             conjuntosArestas.add(aresta);
+            comparacoes++; // Incrementa a contagem de comparações ao adicionar cada aresta à fila de
+                           // prioridade
         }
 
         DisjointSetUnion componentesConectados = new DisjointSetUnion(n);
@@ -84,13 +87,17 @@ public class Tarjan {
             int origem = aresta.getOrigem();
             int destino = aresta.getDestino();
 
+            comparacoes++; // Incrementa a contagem de comparações ao acessar os componentes conectados
             if (componentesConectados.find(origem) != componentesConectados.find(destino)) {
                 componentesConectados.union(origem, destino);
                 result.add(aresta);
+                comparacoes += 2; // Incrementa a contagem de comparações ao realizar a união e adicionar a aresta
+                                  // ao resultado
             }
         }
 
         imprimirArborescenciaMinima(result);
+        System.out.println("Número de comparações realizadas: " + comparacoes);
     }
 
     void contrairCiclo(DisjointSetUnion contrações, Set<Aresta> arvoresEscolhidas, Aresta edge) {

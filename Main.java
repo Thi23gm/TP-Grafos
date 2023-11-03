@@ -8,7 +8,7 @@ import Components.Arquivo;
 
 class Main {
     public static void main(String[] args) throws IOException {
-        Grafo g = Arquivo.lerGrafo("Grafos-tests/graph-test-100.txt");
+        Grafo g = Arquivo.lerGrafo("Grafos-tests/graph-test-500.txt");
         System.out.println("Algoritmo Edmonds: ");
         Long tempoDeExecucao_Edmonds = System.currentTimeMillis();
         Edmonds grafoEdmonds = new Edmonds(g);

@@ -36,6 +36,7 @@ public class Gabow {
         profundidade = new int[numVertices];
         PriorityQueue<Aresta> arestasAtivas = new PriorityQueue<>(Comparator.comparingInt(Aresta::getPeso));
         Set<Integer> visitados = new HashSet<>();
+        int comparacoes = 0; // Variável para contar as comparações
 
         // Inicialize os arrays de pai e profundidade
         for (int i = 0; i < numVertices; i++) {
@@ -55,18 +56,23 @@ public class Gabow {
         // Adicione as arestas do vértice inicial à fila de prioridade
         for (Aresta aresta : arestasSaindo.get(verticeInicial)) {
             arestasAtivas.add(aresta);
+            comparacoes++; // Incrementa a contagem de comparações ao adicionar arestas à fila de
+                           // prioridade
         }
 
         // Continue até que a arborescência mínima esteja completa
         while (arvoreMinima.size() < numVertices - 1) {
             // Encontre a aresta de menor peso na fila de prioridade
             Aresta arestaAtual = arestasAtivas.poll();
+            comparacoes++; // Incrementa a contagem de comparações ao acessar a fila de prioridade
 
             int origem = arestaAtual.getOrigem();
             int destino = arestaAtual.getDestino();
 
-            // Verifique se a aresta forma um ciclo
+            comparacoes += 2; // Incrementa a contagem de comparações ao acessar os vértices da aresta
             if (!visitados.contains(destino)) {
+                comparacoes++; // Incrementa a contagem de comparações ao verificar a condição
+
                 // Adicione a aresta à arborescência mínima
                 arvoreMinima.add(arestaAtual);
                 visitados.add(destino);
@@ -89,9 +95,13 @@ public class Gabow {
                 // Adicione as arestas do vértice destino à fila de prioridade
                 for (Aresta aresta : arestasSaindo.get(destino)) {
                     arestasAtivas.add(aresta);
+                    comparacoes++; // Incrementa a contagem de comparações ao adicionar arestas à fila de
+                                   // prioridade
                 }
             }
         }
+
+        System.out.println("Número de comparações realizadas: " + comparacoes);
     }
 
     private int encontrar(int vertice) {

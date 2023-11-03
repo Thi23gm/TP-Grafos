@@ -28,6 +28,7 @@ public class Edmonds {
     public void encontrarArborescenciaMinima() throws IOException {
         result = new ArrayList<>();
         int n = g.getV();
+        int comparacoes = 0; // Variável para contar as comparações
 
         // Mapa para manter as arestas de saída de cada vértice
         Map<Integer, Aresta> arestasSaida = new HashMap<>();
@@ -36,16 +37,20 @@ public class Edmonds {
         for (Aresta edge : g.getArestas()) {
             int v = edge.destino;
 
+            comparacoes++; // Incrementa a contagem de comparações
             if (arestasSaida.containsKey(v) && edge.peso < arestasSaida.get(v).peso) {
                 arestasSaida.put(v, edge);
+                comparacoes++; // Incrementa a contagem de comparações
             } else if (!arestasSaida.containsKey(v)) {
                 arestasSaida.put(v, edge);
+                comparacoes++; // Incrementa a contagem de comparações
             }
         }
 
         for (int v = 0; v < n; v++) {
             Aresta bestEdge = arestasSaida.get(v);
 
+            comparacoes++; // Incrementa a contagem de comparações
             if (bestEdge != null) {
                 int u = bestEdge.origem;
                 result.add(bestEdge);
@@ -54,6 +59,7 @@ public class Edmonds {
         }
 
         imprimirArborescenciaMinima();
+        System.out.println("Número de comparações realizadas: " + comparacoes);
     }
 
     public List<Aresta> getArborescenciaMinima() {
